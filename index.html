@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankush Rana - Portfolio</title>
+    <meta name="description" content="Portfolio website of Ankush Rana, aspiring full-stack developer and MCA student">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Primary navigation">
+            <a class="logo" href="#home" aria-label="Ankush Rana home">
+                <span>AR</span>
+                Ankush Rana
+            </a>
+            <div class="nav-actions">
+                <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle light theme" aria-pressed="false">
+                    <svg class="theme-icon dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>
+                    </svg>
+                    <svg class="theme-icon light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2"/>
+                        <path d="M12 20v2"/>
+                        <path d="M4.93 4.93l1.41 1.41"/>
+                        <path d="M17.66 17.66l1.41 1.41"/>
+                        <path d="M2 12h2"/>
+                        <path d="M20 12h2"/>
+                        <path d="M4.93 19.07l1.41-1.41"/>
+                        <path d="M17.66 6.34l1.41-1.41"/>
+                    </svg>
+                </button>
+                <button class="hamburger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero section">
+            <div class="hero-effects" aria-hidden="true">
+                <span class="float-icon html icon-one">HTML</span>
+                <span class="float-icon css icon-two">CSS</span>
+                <span class="float-icon js icon-three">JS</span>
+                <span class="float-icon react icon-four">React</span>
+                <span class="float-icon tailwind">Tailwind</span>
+            </div>
+
+            <div class="container hero-content">
+                <div class="hero-avatar reveal">
+                    <div class="avatar-ring"></div>
+                    <img src="ankush.png" alt="Ankush Rana" class="profile-img">
+                </div>
+
+                <p class="eyebrow reveal">Hello, I'm</p>
+                <h1 class="aurora-text reveal">Ankush Rana</h1>
+                <div class="typing-line reveal">
+                    I'm an <span id="typedRole">Aspiring Full-Stack Developer</span><span class="cursor">|</span>
+                </div>
+                <p class="hero-copy reveal">
+                    I'm an MCA student passionate about creating innovative web solutions and bringing ideas to life through code.
+                </p>
+
+                <div class="hero-meta reveal">
+                    <span>Mohali, Punjab</span>
+                    <span class="dot"></span>
+                    <span class="status"><span></span>Seeking Opportunities</span>
+                </div>
+
+                <div class="cta-buttons reveal">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#contact" class="btn ghost">Contact Me</a>
+                </div>
+
+                <div class="social-links reveal" aria-label="Contact links">
+                    <a href="https://github.com/AnkushRana01" class="social-link" target="_blank" rel="noreferrer" aria-label="GitHub profile">
+                        <span class="social-link-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true">
+                                <path d="M12 1.5a10.5 10.5 0 0 0-3.32 20.47c.53.1.72-.23.72-.51v-1.8c-2.95.64-3.57-1.42-3.57-1.42-.48-1.22-1.17-1.55-1.17-1.55-.96-.65.07-.64.07-.64 1.06.08 1.62 1.09 1.62 1.09.94 1.61 2.47 1.15 3.07.88.1-.69.37-1.15.67-1.41-2.36-.27-4.84-1.18-4.84-5.26 0-1.16.42-2.11 1.1-2.86-.11-.27-.48-1.35.1-2.81 0 0 .9-.29 2.95 1.1a10.2 10.2 0 0 1 5.38 0c2.05-1.39 2.95-1.1 2.95-1.1.58 1.46.21 2.54.1 2.81.69.75 1.1 1.7 1.1 2.86 0 4.09-2.49 4.99-4.86 5.26.38.33.72.98.72 1.98v2.94c0 .28.19.61.73.5A10.5 10.5 0 0 0 12 1.5Z"/>
+                            </svg>
+                        </span>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ankush-2b17982b9" class="social-link" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+                        <span class="social-link-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true">
+                                <path d="M6.94 8.5a1.56 1.56 0 1 0 0-3.12 1.56 1.56 0 0 0 0 3.12ZM5.5 10.5h2.88v9.75H5.5V10.5Zm4.5 0h2.76v1.34h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.44 1.91 3.44 4.4v5.49h-2.88v-4.86c0-1.16-.02-2.65-1.62-2.65-1.62 0-1.87 1.26-1.87 2.57v5H10V10.5Z"/>
+                            </svg>
+                        </span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:ranankush239@gmail.com" class="social-link" aria-label="Email Ankush">
+                        <span class="social-link-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true">
+                                <path d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm2.75-.75a.75.75 0 0 0-.75.75v.08l6.25 4.42 6.25-4.42v-.08a.75.75 0 0 0-.75-.75H6.75Zm-.75 2.33V17.25c0 .41.34.75.75.75h10.5c.41 0 .75-.34.75-.75V8.33l-5.75 4.07a.75.75 0 0 1-.75 0L6 8.33Z"/>
+                            </svg>
+                        </span>
+                        <span>Email</span>
+                    </a>
+                    <a href="tel:+918278838721" class="social-link" aria-label="Call Ankush">
+                        <span class="social-link-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true">
+                                <path d="M7.58 2.68a1.5 1.5 0 0 1 1.76.62l1.7 2.6a1.5 1.5 0 0 1-.24 1.94l-1.18 1.06a.75.75 0 0 0-.2.82c.25.55.62 1.11 1.07 1.57.46.46 1.02.83 1.57 1.08a.75.75 0 0 0 .82-.2l1.06-1.18a1.5 1.5 0 0 1 1.94-.24l2.6 1.7a1.5 1.5 0 0 1 .62 1.76l-.62 1.87a3.75 3.75 0 0 1-3.5 2.5c-3.06 0-5.8-1.44-7.77-3.78A10.37 10.37 0 0 1 2.9 8.05a3.75 3.75 0 0 1 2.5-3.5l2.18-.87Z"/>
+                            </svg>
+                        </span>
+                        <span>Phone</span>
+                    </a>
+                </div>
+            </div>
+
+            <a class="scroll-indicator" href="#about" aria-label="Scroll to about">
+                <span>Scroll</span>
+                <i></i>
+            </a>
+        </section>
+
+        <section id="about" class="section about-section">
+            <div class="section-divider"></div>
+            <div class="container">
+                <div class="stats-grid">
+                    <article class="stat-card reveal">
+                        <span>02</span>
+                        <p>Portfolio Projects</p>
+                    </article>
+                    <article class="stat-card reveal">
+                        <span>10+</span>
+                        <p>Core Technologies</p>
+                    </article>
+                    <article class="stat-card reveal">
+                        <span>MCA</span>
+                        <p>Current Program</p>
+                    </article>
+                    <article class="stat-card reveal">
+                        <span>2026</span>
+                        <p>Graduation Track</p>
+                    </article>
+                </div>
+
+                <div class="about-grid">
+                    <div class="section-heading reveal">
+                        <span class="section-headline">
+                            <span class="section-icon"> 
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 3l7 4v4c0 4.5-3 7.8-7 10-4-2.2-7-5.5-7-10V7l7-4Z"/>
+                                </svg>
+                            </span>
+                            Who I Am
+                        </span>
+                        <h2>Passionate about building useful, clean web experiences.</h2>
+                    </div>
+                    <div class="about-content glass-card reveal">
+                        <p>Hello! I'm Ankush, currently pursuing my Master's in Computer Applications (MCA). I'm passionate about web development and love creating user-friendly, efficient, and visually appealing websites.</p>
+                        <p>My journey in programming started with curiosity, and it has evolved into a deep interest in full-stack development. I enjoy learning new technologies and applying them to solve real-world problems.</p>
+                        <p>When I'm not coding, you can find me exploring new technologies, reading tech blogs, or working on personal projects to enhance my skills.</p>
+                        <div class="contact-pills">
+                            <span class="contact-pill">
+                                <span class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"/>
+                                        <path d="m7 8 5 4 5-4"/>
+                                    </svg>
+                                </span>
+                                <a href="mailto:ranankush239@gmail.com">ranankush239@gmail.com</a>
+                            </span>
+                            <span class="contact-pill">
+                                <span class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M7.6 2.7a1.3 1.3 0 0 1 1.5.6l1.5 2.3a1.3 1.3 0 0 1-.2 1.6l-.9.9c-.2.2-.3.5-.2.7.2.5.5 1 .9 1.4.4.4.9.7 1.4.9.2.1.5 0 .7-.2l.9-.9a1.3 1.3 0 0 1 1.6-.2l2.3 1.5a1.3 1.3 0 0 1 .6 1.5l-.5 1.6a3.3 3.3 0 0 1-3.1 2.2C8 16.8 5.7 14.8 4 12.2 2.2 9.7 1.6 6.9 2.8 4.3 3.2 3.4 4.1 2.8 5.1 2.6l1.6-.5Z"/>
+                                    </svg>
+                                </span>
+                                <a href="tel:+918278838721">+91 82788 38721</a>
+                            </span>
+                            <span class="contact-pill">
+                                <span class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M12 21s-6.5-4.5-6.5-10.5a6.5 6.5 0 1 1 13 0C18.5 16.5 12 21 12 21Z"/>
+                                        <circle cx="12" cy="10.5" r="2.5"/>
+                                    </svg>
+                                </span>
+                                <span>Mohali, Punjab</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section skills-section">
+            <div class="section-divider"></div>
+            <div class="skills-glow skills-glow-left" aria-hidden="true"></div>
+            <div class="skills-glow skills-glow-right" aria-hidden="true"></div>
+            <div class="container">
+                <div class="section-heading centered skills-heading reveal">
+                    <span class="section-headline">
+                        <span class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 12h16"/>
+                                <path d="M7 8h10"/>
+                                <path d="M7 16h10"/>
+                            </svg>
+                        </span>
+                        What I Work With
+                    </span>
+                    <h2 class="aurora-text">Technical Arsenal</h2>
+                    <i aria-hidden="true"></i>
+                    <p>Tools and technologies I use to bring ideas to life.</p>
+                </div>
+                <div class="skills-grid">
+                    <article class="skill-category glass-card reveal">
+                        <div class="skill-category-header">
+                            <div>
+                                <span class="skill-dot"></span>
+                                <h3>Frontend</h3>
+                            </div>
+                            <span class="skill-count">5 skills</span>
+                        </div>
+                        <div class="skill-list">
+                            <span class="html"><i>H5</i>HTML5</span>
+                            <span class="css"><i>C3</i>CSS3</span>
+                            <span class="js"><i>JS</i>JavaScript</span>
+                            <span class="react"><i>R</i>React</span>
+                            <span class="tailwind"><i>TW</i>Tailwind CSS</span>
+                        </div>
+                    </article>
+                    <article class="skill-category glass-card reveal">
+                        <div class="skill-category-header">
+                            <div>
+                                <span class="skill-dot"></span>
+                                <h3>Backend</h3>
+                            </div>
+                            <span class="skill-count">5 skills</span>
+                        </div>
+                        <div class="skill-list">
+                            <span class="node"><i>N</i>Node.js</span>
+                            <span class="express"><i>EX</i>Express.js</span>
+                            <span class="firebase"><i>FB</i>Firebase</span>
+                            <span class="mongodb"><i>DB</i>MongoDB</span>
+                            <span class="mysql"><i>MY</i>MySQL</span>
+                        </div>
+                    </article>
+                    <article class="skill-category glass-card reveal">
+                        <div class="skill-category-header">
+                            <div>
+                                <span class="skill-dot"></span>
+                                <h3>Tools & Workflow</h3>
+                            </div>
+                            <span class="skill-count">5 skills</span>
+                        </div>
+                        <div class="skill-list">
+                            <span class="github"><i>GH</i>GitHub</span>
+                            <span class="postman"><i>PM</i>Postman</span>
+                            <span class="vercel"><i>VC</i>Vercel</span>
+                            <span><i>VS</i>VS Code</span>
+                            <span><i>G</i>Git</span>
+                        </div>
+                    </article>
+                </div>
+                <div class="skills-marquee reveal" aria-hidden="true">
+                    <div class="moving-stack">
+                        <span class="html"><i>H5</i>HTML5</span><span class="css"><i>C3</i>CSS3</span><span class="js"><i>JS</i>JavaScript</span><span class="react"><i>R</i>React</span><span class="tailwind"><i>TW</i>Tailwind CSS</span><span class="node"><i>N</i>Node.js</span><span class="express"><i>EX</i>Express.js</span><span class="firebase"><i>FB</i>Firebase</span><span class="mongodb"><i>DB</i>MongoDB</span><span class="mysql"><i>MY</i>MySQL</span><span class="github"><i>GH</i>GitHub</span><span class="postman"><i>PM</i>Postman</span><span class="vercel"><i>VC</i>Vercel</span><span><i>VS</i>VS Code</span><span><i>G</i>Git</span>
+                        <span class="html"><i>H5</i>HTML5</span><span class="css"><i>C3</i>CSS3</span><span class="js"><i>JS</i>JavaScript</span><span class="react"><i>R</i>React</span><span class="tailwind"><i>TW</i>Tailwind CSS</span><span class="node"><i>N</i>Node.js</span><span class="express"><i>EX</i>Express.js</span><span class="firebase"><i>FB</i>Firebase</span><span class="mongodb"><i>DB</i>MongoDB</span><span class="mysql"><i>MY</i>MySQL</span><span class="github"><i>GH</i>GitHub</span><span class="postman"><i>PM</i>Postman</span><span class="vercel"><i>VC</i>Vercel</span><span><i>VS</i>VS Code</span><span><i>G</i>Git</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <div class="container">
+                <div class="section-heading centered reveal">
+                    <span class="section-headline">
+                        <span class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M6 20h12"/>
+                                <path d="M7 7h10v8H7z"/>
+                                <path d="M9 11h6"/>
+                                <path d="M9 14h4"/>
+                            </svg>
+                        </span>
+                        Projects
+                    </span>
+                    <h2>Selected work and active builds.</h2>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card glass-card reveal">
+                        <div class="project-visual visual-one">
+                            <span>01</span>
+                        </div>
+                        <p class="project-type">Responsive Web</p>
+                        <h3>Portfolio Website</h3>
+                        <p>A responsive portfolio website built with HTML, CSS, and JavaScript.</p>
+                        <a href="#home" class="text-link">View Project</a>
+                    </article>
+                    <article class="project-card glass-card reveal">
+                        <div class="project-visual visual-two">
+                            <span>02</span>
+                        </div>
+                        <p class="project-type">In Development</p>
+                        <h3>Coming Soon</h3>
+                        <p>Exciting projects in development. Stay tuned!</p>
+                        <a href="#contact" class="text-link">Discuss Ideas</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section split-section">
+            <div class="container two-column">
+                <div class="section-heading reveal">
+                    <span class="section-headline">
+                        <span class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 8.5 12 4l8 4.5-8 4.5-8-4.5Z"/>
+                                <path d="M7 10.5v5.5"/>
+                                <path d="M12 13v5.5"/>
+                                <path d="M17 10.5v5.5"/>
+                            </svg>
+                        </span>
+                        Education
+                    </span>
+                    <h2>Academic foundation in computer applications.</h2>
+                    <p>Focused on advanced computer science concepts, software development, and emerging technologies.</p>
+                </div>
+                <div class="timeline">
+                    <article class="timeline-item glass-card reveal">
+                        <span class="timeline-dot"></span>
+                        <p class="period">2024 - 2026</p>
+                        <h3>Master of Computer Applications (MCA)</h3>
+                        <p class="institution">Current Institution</p>
+                        <p>Focusing on advanced computer science concepts, software development, and emerging technologies.</p>
+                    </article>
+                    <article class="timeline-item glass-card reveal">
+                        <span class="timeline-dot"></span>
+                        <p class="period">2019 - 2022</p>
+                        <h3>Bachelor's Degree</h3>
+                        <p class="institution">Previous Institution</p>
+                        <p>Completed bachelor's degree with a focus on computer science fundamentals.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section split-section">
+            <div class="container two-column reverse">
+                <div class="experience-card glass-card reveal">
+                    <p class="period">2025 - Present</p>
+                    <h3>Full Stack Web Development Trainee</h3>
+                    <p class="institution">Ziion Technology, Mohali</p>
+                    <p>Worked as a full stack web development trainee learning modern web technologies, building responsive interfaces, and collaborating on real-world projects focused on practical development workflows.</p>
+                    <p>Gained hands-on experience in frontend and backend integration, version control, debugging, and deployment practices while improving confidence in end-to-end web development.</p>
+                </div>
+                <div class="section-heading reveal">
+                    <span class="section-headline">
+                        <span class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 6h16"/>
+                                <path d="M4 12h16"/>
+                                <path d="M4 18h10"/>
+                            </svg>
+                        </span>
+                        Experience
+                    </span>
+                    <h2>Learning by building and preparing for real-world teams.</h2>
+                    <p>Open to internships, trainee roles, and collaborative projects where I can contribute and keep improving.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="container contact-grid">
+                <div class="section-heading reveal">
+                    <span class="section-headline">
+                        <span class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"/>
+                                <path d="m7 8 5 4 5-4"/>
+                            </svg>
+                        </span>
+                        Contact
+                    </span>
+                    <h2>Let's talk about an opportunity, project, or idea.</h2>
+                    <p>Send a message or reach me directly using the contact details below.</p>
+                    <div class="direct-contact">
+                        <span class="contact-pill">
+                            <span class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"/>
+                                    <path d="m7 8 5 4 5-4"/>
+                                </svg>
+                            </span>
+                            <a href="mailto:ranankush239@gmail.com">ranankush239@gmail.com</a>
+                        </span>
+                        <span class="contact-pill">
+                            <span class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M7.6 2.7a1.3 1.3 0 0 1 1.5.6l1.5 2.3a1.3 1.3 0 0 1-.2 1.6l-.9.9c-.2.2-.3.5-.2.7.2.5.5 1 .9 1.4.4.4.9.7 1.4.9.2.1.5 0 .7-.2l.9-.9a1.3 1.3 0 0 1 1.6-.2l2.3 1.5a1.3 1.3 0 0 1 .6 1.5l-.5 1.6a3.3 3.3 0 0 1-3.1 2.2C8 16.8 5.7 14.8 4 12.2 2.2 9.7 1.6 6.9 2.8 4.3 3.2 3.4 4.1 2.8 5.1 2.6l1.6-.5Z"/>
+                                </svg>
+                            </span>
+                            <a href="tel:+918278838721">+91 82788 38721</a>
+                        </span>
+                        <span class="contact-pill">
+                            <span class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 21s-6.5-4.5-6.5-10.5a6.5 6.5 0 1 1 13 0C18.5 16.5 12 21 12 21Z"/>
+                                    <circle cx="12" cy="10.5" r="2.5"/>
+                                </svg>
+                            </span>
+                            <span>Mohali, Punjab</span>
+                        </span>
+                    </div>
+                    <div class="contact-social-links">
+                        <a href="https://github.com/AnkushRana01" target="_blank" rel="noreferrer" class="social-link contact-social-link">
+                            <span class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7"/>
+                                    <path d="M14 22c3.5 0 5.5-1.8 5.5-4.8 0-1.8-.8-3.3-2.5-4.1 1-.6 2.2-2.5 1.6-5.1-.6-2.2-3-3.9-5.4-2.6"/>
+                                    <path d="M12 2a10 10 0 0 0-7 17.2c.5.1.7-.2.7-.5v-1.7c-3 1.1-3.7-1.5-3.7-1.5-.5-1.2-1.2-1.5-1.2-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1.9 1.6 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.4-.3-4.9-1.2-4.9-5.4 0-1.2.4-2.2 1.1-2.9-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1a10.2 10.2 0 0 1 5.5 0c2.1-1.4 3-1.1 3-1.1.6 1.5.2 2.6.1 2.9.7.7 1.1 1.7 1.1 2.9 0 4.2-2.5 5.1-4.9 5.4.4.3.7 1 .7 2v2.9c0 .3.2.7.8.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z"/>
+                                </svg>
+                            </span>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ankush-2b17982b9" target="_blank" rel="noreferrer" class="social-link contact-social-link">
+                            <span class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M6.5 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+                                    <path d="M5 10.5h3v9H5z"/>
+                                    <path d="M10 10.5h2.8v1.3h.1c.4-.7 1.3-1.4 2.7-1.4 2.9 0 3.4 1.9 3.4 4.4v5.2h-2.8v-4.7c0-1.1 0-2.6-1.6-2.6-1.6 0-1.8 1.2-1.8 2.5v4.8H10z"/>
+                                </svg>
+                            </span>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form glass-card reveal">
+                    <input type="hidden" name="title" value="Portfolio Contact Message">
+                    <label>
+                        <span>Your Name</span>
+                        <input type="text" name="from_name" placeholder="Enter your name" required>
+                    </label>
+                    <label>
+                        <span>Your Email</span>
+                        <input type="email" name="from_email" placeholder="Enter your email" required>
+                    </label>
+                    <label>
+                        <span>Your Message</span>
+                        <textarea name="message" placeholder="Tell me what you want to build" rows="5" required></textarea>
+                    </label>
+                    <p class="form-status" aria-live="polite"></p>
+                    <button type="submit" class="btn primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>Copyright 2026 Ankush Rana. Built with HTML, CSS, and JavaScript.</p>
+            <a href="#home">Back to top</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
