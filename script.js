@@ -1,307 +1,483 @@
-const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
-const navItems = document.querySelectorAll(".nav-links a");
-const themeToggle = document.querySelector("#themeToggle");
-const roles = [
-    "Aspiring Full-Stack Developer",
-    "MCA Student",
-    "Web Developer",
-    "Problem Solver"
-];
+/* ═══════════════════════════════════════════════════════════
+   ANKUSH RANA PORTFOLIO — script.js
+   Premium Full Stack Developer Portfolio
+   ═══════════════════════════════════════════════════════════ */
 
-let roleIndex = 0;
-let charIndex = 0;
-let deleting = false;
-const typedRole = document.querySelector("#typedRole");
-const cursorDot = document.querySelector(".cursor-dot");
-const cursorRing = document.querySelector(".cursor-ring");
+/* ── EmailJS config ──────────────────────────────────────────
+   Replace these values with your real EmailJS credentials.    */
 const emailJsConfig = {
-    serviceId: "service_hoc0rna",
-    templateId: "template_8i5fe91",
-    publicKey: "MPgjt3hl6PkSEAFF8"
+  serviceId:  "service_hoc0rna",
+  templateId: "template_8i5fe91",
+  publicKey:  "MPgjt3hl6PkSEAFF8"
 };
 
-let cursorX = 0;
-let cursorY = 0;
-let ringX = 0;
-let ringY = 0;
+/* ── Typing animation roles ─────────────────────────────────── */
+const roles = [
+  "Full Stack Developer",
+  "React Developer",
+  "Tailwind CSS Developer",
+  "Node.js Engineer",
+  "MCA Graduate",
+  "Problem Solver"
+];
 
-function openExternalLink(url) {
-    if (url.startsWith("mailto:")) {
-        const email = url.replace(/^mailto:/i, "").split("?")[0];
-        const params = new URLSearchParams(url.split("?")[1] || "");
-        const composeUrl = new URL("https://mail.google.com/mail/");
+/* ── Phone number (obfuscated — not in HTML source) ───────────
+   Stored encoded to avoid plain-text scraping.               */
+const _p = [43, 57, 49, 32, 56, 50, 55, 56, 56, 32, 51, 56, 55, 50, 49]
+  .map(c => String.fromCharCode(c)).join("");   // "+91 82788 38721"
 
-        composeUrl.searchParams.set("view", "cm");
-        composeUrl.searchParams.set("to", email);
+/* ══════════════════════════════════════════════════════════════
+   DOM REFS
+══════════════════════════════════════════════════════════════ */
+const hamburger    = document.querySelector(".hamburger");
+const navLinks     = document.querySelector(".nav-links");
+const navItems     = document.querySelectorAll(".nav-links a");
+const themeToggle  = document.querySelector("#themeToggle");
+const typedRole    = document.querySelector("#typedRole");
+const cursorDot    = document.querySelector(".cursor-dot");
+const cursorRing   = document.querySelector(".cursor-ring");
+const contactForm  = document.querySelector("#contactForm");
+const formStatus   = document.querySelector("#formStatus");
+const formFallback = document.querySelector("#formFallback");
+const submitBtn    = document.querySelector("#formSubmitBtn");
 
-        if (params.get("subject")) {
-            composeUrl.searchParams.set("su", params.get("subject"));
-        }
-
-        if (params.get("body")) {
-            composeUrl.searchParams.set("body", params.get("body"));
-        }
-
-        const popup = window.open(composeUrl.toString(), "_blank", "noopener,noreferrer");
-
-        if (!popup) {
-            window.location.href = composeUrl.toString();
-        }
-
-        return;
-    }
-
-    if (url.startsWith("tel:")) {
-        const popup = window.open(url, "_blank", "noopener,noreferrer");
-
-        if (!popup) {
-            window.location.href = url;
-        }
-
-        return;
-    }
-
-    const popup = window.open(url, "_blank", "noopener,noreferrer");
-
-    if (!popup) {
-        window.location.href = url;
-    }
-}
-
-function buildMailtoHref(fromName, fromEmail, message) {
-    const subject = encodeURIComponent(`Portfolio Contact Message${fromName ? ` from ${fromName}` : ""}`);
-    const body = encodeURIComponent(
-        `Name: ${fromName || "Not provided"}\nEmail: ${fromEmail || "Not provided"}\n\n${message || ""}`
-    );
-
-    return `mailto:ranankush239@gmail.com?subject=${subject}&body=${body}`;
-}
-
-function isGmailScopeError(errorText) {
-    const normalized = String(errorText || "").toLowerCase();
-
-    return normalized.includes("gmail_api") && normalized.includes("insufficient authentication scopes");
-}
-
-function typeRole() {
-    if (!typedRole) return;
-
-    const currentRole = roles[roleIndex];
-    typedRole.textContent = currentRole.slice(0, charIndex);
-
-    if (!deleting && charIndex < currentRole.length) {
-        charIndex += 1;
-        setTimeout(typeRole, 90);
-        return;
-    }
-
-    if (!deleting && charIndex === currentRole.length) {
-        deleting = true;
-        setTimeout(typeRole, 1500);
-        return;
-    }
-
-    if (deleting && charIndex > 0) {
-        charIndex -= 1;
-        setTimeout(typeRole, 42);
-        return;
-    }
-
-    deleting = false;
-    roleIndex = (roleIndex + 1) % roles.length;
-    setTimeout(typeRole, 280);
-}
-
+/* ══════════════════════════════════════════════════════════════
+   1. THEME
+══════════════════════════════════════════════════════════════ */
 function applyTheme(theme) {
-    const resolvedTheme = theme === "light" ? "light" : "dark";
-
-    document.body.classList.toggle("theme-light", resolvedTheme === "light");
-    localStorage.setItem("portfolio-theme", resolvedTheme);
-
-    if (themeToggle) {
-        themeToggle.setAttribute("aria-pressed", String(resolvedTheme === "light"));
-        themeToggle.setAttribute("aria-label", resolvedTheme === "light" ? "Switch to dark theme" : "Switch to light theme");
-    }
+  const isLight = theme === "light";
+  document.body.classList.toggle("theme-light", isLight);
+  localStorage.setItem("portfolio-theme", isLight ? "light" : "dark");
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", String(isLight));
+    themeToggle.setAttribute("aria-label",
+      isLight ? "Switch to dark theme" : "Switch to light theme");
+  }
 }
 
 function initTheme() {
-    const savedTheme = localStorage.getItem("portfolio-theme");
-    const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  const saved     = localStorage.getItem("portfolio-theme");
+  const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  applyTheme(saved || preferred);
+}
 
-    applyTheme(savedTheme || preferredTheme);
+themeToggle?.addEventListener("click", () => {
+  const next = document.body.classList.contains("theme-light") ? "dark" : "light";
+  applyTheme(next);
+});
+
+/* ══════════════════════════════════════════════════════════════
+   2. NAVBAR
+══════════════════════════════════════════════════════════════ */
+function closeMenu() {
+  navLinks?.classList.remove("active");
+  hamburger?.classList.remove("active");
+  hamburger?.setAttribute("aria-expanded", "false");
+  hamburger?.setAttribute("aria-label", "Open navigation menu");
 }
 
 hamburger?.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("active");
-    hamburger.classList.toggle("active", isOpen);
-    hamburger.setAttribute("aria-expanded", String(isOpen));
+  const isOpen = navLinks.classList.toggle("active");
+  hamburger.classList.toggle("active", isOpen);
+  hamburger.setAttribute("aria-expanded", String(isOpen));
+  hamburger.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
 });
 
-navItems.forEach((link) => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-        hamburger?.classList.remove("active");
-        hamburger?.setAttribute("aria-expanded", "false");
-    });
+/* Close mobile menu when a nav link is clicked */
+navItems.forEach(link => link.addEventListener("click", closeMenu));
+
+/* Close menu on outside click */
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".nav-links") && !e.target.closest(".hamburger")) {
+    closeMenu();
+  }
 });
 
-themeToggle?.addEventListener("click", () => {
-    const nextTheme = document.body.classList.contains("theme-light") ? "dark" : "light";
-    applyTheme(nextTheme);
+/* Close menu on Escape */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeMenu();
 });
 
-document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]').forEach((link) => {
-    link.addEventListener("click", (event) => {
-        event.preventDefault();
-        openExternalLink(link.getAttribute("href"));
-    });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", (event) => {
-        const target = document.querySelector(anchor.getAttribute("href"));
-
-        if (!target) return;
-
-        event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-});
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.16, rootMargin: "0px 0px -60px 0px" });
-
-document.querySelectorAll(".reveal").forEach((element) => {
-    revealObserver.observe(element);
-});
-
+/* ══════════════════════════════════════════════════════════════
+   3. ACTIVE NAV LINK (Intersection Observer)
+══════════════════════════════════════════════════════════════ */
 const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        navItems.forEach((item) => {
-            item.classList.toggle("active", item.getAttribute("href") === `#${entry.target.id}`);
-        });
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    navItems.forEach(item => {
+      const isActive = item.getAttribute("href") === `#${entry.target.id}`;
+      item.classList.toggle("active", isActive);
+      /* Manage aria-current dynamically — never hardcoded in HTML */
+      if (isActive) {
+        item.setAttribute("aria-current", "page");
+      } else {
+        item.removeAttribute("aria-current");
+      }
     });
-}, { threshold: 0.35 });
+  });
+}, { threshold: 0.3, rootMargin: "0px 0px -20% 0px" });
 
-document.querySelectorAll("main section[id]").forEach((section) => {
-    sectionObserver.observe(section);
+document.querySelectorAll("main section[id]").forEach(s => sectionObserver.observe(s));
+
+/* ══════════════════════════════════════════════════════════════
+   4. SMOOTH SCROLL for anchor links
+══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", (e) => {
+    const target = document.querySelector(anchor.getAttribute("href"));
+    if (!target) return;
+    e.preventDefault();
+    const offset = parseInt(getComputedStyle(document.documentElement)
+      .getPropertyValue("--nav-height") || "72", 10);
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  });
 });
 
-document.querySelector(".contact-form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    const submitButton = form.querySelector('button[type="submit"]');
-    const status = form.querySelector(".form-status");
-    const fallbackLink = form.querySelector(".form-fallback");
-    const isConfigured = !Object.values(emailJsConfig).some((value) => value.startsWith("YOUR_"));
-    const formData = new FormData(form);
-    const fromName = String(formData.get("from_name") || "").trim();
-    const fromEmail = String(formData.get("from_email") || "").trim();
-    const message = String(formData.get("message") || "").trim();
-    const mailtoHref = buildMailtoHref(fromName, fromEmail, message);
-    const templateParams = {
-        title: "Portfolio Contact Message",
-        to_name: "Ankush Rana",
-        to_email: "ranankush239@gmail.com",
-        from_name: fromName,
-        from_email: fromEmail,
-        reply_to: fromEmail,
-        name: fromName,
-        email: fromEmail,
-        message
-    };
-
-    if (fallbackLink) {
-        fallbackLink.href = mailtoHref;
-        fallbackLink.textContent = "Open your email app instead";
+/* ══════════════════════════════════════════════════════════════
+   5. REVEAL ANIMATIONS (Intersection Observer)
+══════════════════════════════════════════════════════════════ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
     }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
 
-    if (!window.emailjs || !isConfigured) {
-        status.textContent = "EmailJS is ready. Add your Service ID, Template ID, and Public Key in script.js.";
-        status.className = "form-status error";
-        return;
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+/* ══════════════════════════════════════════════════════════════
+   6. COUNTER ANIMATION
+══════════════════════════════════════════════════════════════ */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  /* Default suffix is empty string — use data-suffix="+" in HTML where needed */
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
+  const start    = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    // Ease-out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value  = Math.floor(eased * target);
+    el.textContent = value + (progress === 1 ? suffix : "");
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* Trigger counters when stat cards are visible */
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target.querySelector(".counter");
+      if (el && !el.dataset.done) {
+        el.dataset.done = "1";
+        animateCounter(el);
+      }
+      counterObserver.unobserve(entry.target);
     }
+  });
+}, { threshold: 0.5 });
 
-    status.textContent = "Sending your message...";
-    status.className = "form-status";
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending...";
+document.querySelectorAll(".stat-card").forEach(card => counterObserver.observe(card));
 
-    emailjs.send(emailJsConfig.serviceId, emailJsConfig.templateId, templateParams, {
-        publicKey: emailJsConfig.publicKey
-    }).then(() => {
-        status.textContent = "Message sent successfully. Thank you!";
-        status.className = "form-status success";
-        form.reset();
-    }).catch((error) => {
-        const errorText = error?.text || error?.message || "Please check your EmailJS service/template settings.";
+/* ══════════════════════════════════════════════════════════════
+   7. TYPING ANIMATION
+══════════════════════════════════════════════════════════════ */
+let roleIndex = 0, charIndex = 0, deleting = false;
 
-        if (isGmailScopeError(errorText)) {
-            status.textContent = "Email delivery is currently blocked by Gmail authorization. Use the fallback link below to open your email app, or reconnect the Gmail service in EmailJS.";
-            status.className = "form-status error";
-        } else {
-            status.textContent = `Message could not be sent: ${errorText}`;
-            status.className = "form-status error";
-        }
-    }).finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = "Send Message";
-    });
+function typeRole() {
+  if (!typedRole) return;
+  const current = roles[roleIndex];
+  typedRole.textContent = current.slice(0, charIndex);
+
+  if (!deleting && charIndex < current.length) {
+    charIndex++;
+    return setTimeout(typeRole, 85);
+  }
+  if (!deleting && charIndex === current.length) {
+    deleting = true;
+    return setTimeout(typeRole, 1600);
+  }
+  if (deleting && charIndex > 0) {
+    charIndex--;
+    return setTimeout(typeRole, 40);
+  }
+  deleting  = false;
+  roleIndex = (roleIndex + 1) % roles.length;
+  setTimeout(typeRole, 300);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   8. PHONE NUMBER DISPLAYED DIRECTLY (reveal functionality removed)
+══════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════
+   9. OPEN EXTERNAL LINKS (mailto / tel → Gmail or dialer)
+══════════════════════════════════════════════════════════════ */
+function buildGmailUrl(email, subject, body) {
+  const u = new URL("https://mail.google.com/mail/");
+  u.searchParams.set("view", "cm");
+  u.searchParams.set("to",   email);
+  if (subject) u.searchParams.set("su",   subject);
+  if (body)    u.searchParams.set("body", body);
+  return u.toString();
+}
+
+function openLink(url) {
+  const popup = window.open(url, "_blank", "noopener,noreferrer");
+  if (!popup) window.location.href = url;
+}
+
+/* Intercept mailto links → Gmail composer */
+document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const raw    = link.getAttribute("href").replace(/^mailto:/i, "");
+    const [addr, qs] = raw.split("?");
+    const params = new URLSearchParams(qs || "");
+    openLink(buildGmailUrl(addr, params.get("subject"), params.get("body")));
+  });
 });
+
+/* ══════════════════════════════════════════════════════════════
+   10. CONTACT FORM (EmailJS + fallback + validation)
+══════════════════════════════════════════════════════════════ */
+function validateField(input, errorEl, rule) {
+  const msg = rule(input.value.trim());
+  errorEl.textContent = msg;
+  input.classList.toggle("error-field", !!msg);
+  input.classList.toggle("success-field", !msg && input.value.trim().length > 0);
+  
+  /* Accessibility: toggle aria-invalid dynamically */
+  if (msg) {
+    input.setAttribute("aria-invalid", "true");
+  } else {
+    input.removeAttribute("aria-invalid");
+  }
+  
+  return !msg;
+}
+
+const validations = {
+  from_name:  v => v.length < 2  ? "Please enter your name (min 2 characters)." : "",
+  from_email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "Please enter a valid email address.",
+  subject:    v => v.length > 100 ? "Subject must be under 100 characters." : "",
+  message:    v => v.length < 10 ? "Message must be at least 10 characters." : ""
+};
+
+contactForm?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  /* Anti-spam honeypot check */
+  const honey = contactForm.querySelector('[name="_honey"]');
+  if (honey && honey.value) return; /* bot detected */
+
+  /* Validate all fields */
+  let valid = true;
+  ["from_name", "from_email", "subject", "message"].forEach(name => {
+    const input = contactForm.querySelector(`[name="${name}"]`);
+    const error = document.querySelector(`#${name}Error`) ||
+                  contactForm.querySelector(`#${name.replace("from_", "")}Error`);
+    if (input && error) {
+      const ok = validateField(input, error, validations[name]);
+      if (!ok) valid = false;
+    }
+  });
+
+  if (!valid) return;
+
+  const fd        = new FormData(contactForm);
+  const fromName  = String(fd.get("from_name") || "").trim();
+  const fromEmail = String(fd.get("from_email") || "").trim();
+  const subject   = String(fd.get("subject")    || "").trim();
+  const message   = String(fd.get("message")    || "").trim();
+
+  /* Build mailto fallback (include subject if provided) */
+  const mailtoHref = `mailto:ranankush239@gmail.com?subject=${
+    encodeURIComponent(subject || `Portfolio Contact Message from ${fromName}`)
+  }&body=${encodeURIComponent(`Name: ${fromName}\nEmail: ${fromEmail}\n\n${message}`)}`;
+
+  /* Show fallback link always (helpful if EmailJS fails) */
+  if (formFallback) {
+    formFallback.href  = mailtoHref;
+    formFallback.style.display = "block";
+    formFallback.textContent   = "You can also contact me directly via email →";
+  }
+
+  /* Check if EmailJS is configured */
+  const isConfigured = !Object.values(emailJsConfig).some(v => v.startsWith("YOUR_"));
+
+  if (!window.emailjs || !isConfigured) {
+    formStatus.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>Could not connect to email service. Please use the link below.</span>
+    `;
+    formStatus.className = "form-status error visible";
+    return;
+  }
+
+  /* Send via EmailJS */
+  formStatus.classList.remove("visible", "success", "error");
+  submitBtn.disabled = true;
+  submitBtn.classList.add("loading");
+  const btnTextEl = submitBtn.querySelector(".btn-text");
+  if (btnTextEl) btnTextEl.textContent = "Sending…";
+
+  const templateParams = {
+    title:      subject || "Portfolio Contact Message",
+    to_name:    "Ankush Rana",
+    to_email:   "ranankush239@gmail.com",
+    from_name:  fromName,
+    from_email: fromEmail,
+    reply_to:   fromEmail,
+    name:       fromName,
+    email:      fromEmail,
+    subject:    subject || "Portfolio Contact Message",
+    message
+  };
+
+  emailjs.send(emailJsConfig.serviceId, emailJsConfig.templateId, templateParams, {
+    publicKey: emailJsConfig.publicKey
+  })
+  .then(() => {
+    formStatus.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>✓ Message sent successfully. Thank you, I'll get back to you soon!</span>
+    `;
+    formStatus.className = "form-status success visible";
+    contactForm.reset();
+    
+    /* Remove all success/error border classes */
+    contactForm.querySelectorAll("input, textarea").forEach(el => {
+      el.classList.remove("success-field", "error-field");
+      el.removeAttribute("aria-invalid");
+    });
+
+    /* Hide fallback on success */
+    if (formFallback) formFallback.style.display = "none";
+
+    /* Auto dismiss success toast after 6 seconds */
+    setTimeout(() => {
+      formStatus.classList.remove("visible");
+    }, 6000);
+  })
+  .catch((err) => {
+    const errText = err?.text || err?.message || "Unknown error";
+    const userFriendlyMsg = errText.toLowerCase().includes("gmail") && errText.toLowerCase().includes("scope")
+      ? "Gmail authorization issue. Please use the link below to contact me directly."
+      : `Message could not be sent: ${errText}. Please use the link below.`;
+
+    formStatus.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>${userFriendlyMsg}</span>
+    `;
+    formStatus.className = "form-status error visible";
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("loading");
+    if (btnTextEl) btnTextEl.textContent = "Send Message";
+  });
+});
+
+/* Real-time field validation on blur & input */
+contactForm?.querySelectorAll("input, textarea").forEach(input => {
+  const handler = () => {
+    const name  = input.name;
+    const rule  = validations[name];
+    const error = document.querySelector(`#${name}Error`) ||
+                  contactForm.querySelector(`#${name.replace("from_", "")}Error`);
+    if (rule && error) validateField(input, error, rule);
+  };
+  input.addEventListener("blur", handler);
+  input.addEventListener("input", handler);
+});
+
+/* ══════════════════════════════════════════════════════════════
+   11. CUSTOM CURSOR
+══════════════════════════════════════════════════════════════ */
+let cursorX = 0, cursorY = 0, ringX = 0, ringY = 0;
 
 function moveCursor() {
-    ringX += (cursorX - ringX) * 0.16;
-    ringY += (cursorY - ringY) * 0.16;
-
-    if (cursorDot) {
-        cursorDot.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
-    }
-
-    if (cursorRing) {
-        cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    }
-
-    requestAnimationFrame(moveCursor);
+  ringX += (cursorX - ringX) * 0.16;
+  ringY += (cursorY - ringY) * 0.16;
+  if (cursorDot) cursorDot.style.transform = `translate(${cursorX}px,${cursorY}px) translate(-50%,-50%)`;
+  if (cursorRing) cursorRing.style.transform = `translate(${ringX}px,${ringY}px) translate(-50%,-50%)`;
+  requestAnimationFrame(moveCursor);
 }
 
 function initCursor() {
-    const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
+  if (!cursorDot || !cursorRing) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
 
-    if (!cursorDot || !cursorRing || !supportsFinePointer) return;
+  document.body.classList.add("cursor-ready");
 
-    document.body.classList.add("cursor-ready");
+  window.addEventListener("mousemove", e => { cursorX = e.clientX; cursorY = e.clientY; });
+  window.addEventListener("mouseleave", () => document.body.classList.remove("cursor-ready"));
+  window.addEventListener("mouseenter",  () => document.body.classList.add("cursor-ready"));
 
-    window.addEventListener("mousemove", (event) => {
-        cursorX = event.clientX;
-        cursorY = event.clientY;
-    });
+  const hoverTargets = "a, button, input, textarea, .skill-list span, .moving-stack span, .project-card, .stat-card, .achievement-card";
+  document.querySelectorAll(hoverTargets).forEach(el => {
+    el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+    el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+  });
 
-    window.addEventListener("mouseleave", () => {
-        document.body.classList.remove("cursor-ready");
-    });
-
-    window.addEventListener("mouseenter", () => {
-        document.body.classList.add("cursor-ready");
-    });
-
-    document.querySelectorAll("a, button, input, textarea, .skill-list span, .moving-stack span").forEach((element) => {
-        element.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
-        element.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
-    });
-
-    moveCursor();
+  moveCursor();
 }
 
-typeRole();
+/* ══════════════════════════════════════════════════════════════
+   12. BUTTON RIPPLE EFFECT
+══════════════════════════════════════════════════════════════ */
+document.querySelectorAll(".btn, .btn-proj").forEach(btn => {
+  btn.addEventListener("click", function (e) {
+    const rect   = this.getBoundingClientRect();
+    const ripple = document.createElement("span");
+    const size   = Math.max(rect.width, rect.height);
+
+    ripple.style.cssText = `
+      position:absolute; border-radius:50%;
+      background:rgba(255,255,255,.25);
+      width:${size}px; height:${size}px;
+      left:${e.clientX - rect.left - size / 2}px;
+      top:${e.clientY - rect.top  - size / 2}px;
+      transform:scale(0); animation:ripple 500ms ease-out forwards;
+      pointer-events:none;
+    `;
+
+    /* Add ripple keyframe once */
+    if (!document.querySelector("#ripple-style")) {
+      const style = document.createElement("style");
+      style.id    = "ripple-style";
+      style.textContent = "@keyframes ripple{to{transform:scale(2.5);opacity:0;}}";
+      document.head.appendChild(style);
+    }
+
+    this.appendChild(ripple);
+    ripple.addEventListener("animationend", () => ripple.remove());
+  });
+});
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════════ */
+
+/* Block navigation on aria-disabled buttons/links (e.g. "Repo Coming Soon") */
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[aria-disabled='true']");
+  if (el) e.preventDefault();
+});
+
 initTheme();
 initCursor();
+typeRole();
