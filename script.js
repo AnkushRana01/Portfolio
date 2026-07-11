@@ -40,6 +40,7 @@ const contactForm  = document.querySelector("#contactForm");
 const formStatus   = document.querySelector("#formStatus");
 const formFallback = document.querySelector("#formFallback");
 const submitBtn    = document.querySelector("#formSubmitBtn");
+const siteHeader   = document.querySelector(".site-header");
 
 /* ══════════════════════════════════════════════════════════════
    1. THEME
@@ -478,6 +479,20 @@ document.addEventListener("click", (e) => {
   if (el) e.preventDefault();
 });
 
+/* ── Navbar Scroll Behavior ── */
+function initNavbarScroll() {
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      siteHeader?.classList.add("scrolled");
+    } else {
+      siteHeader?.classList.remove("scrolled");
+    }
+  };
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll(); // set correct initial state
+}
+
 initTheme();
 initCursor();
 typeRole();
+initNavbarScroll();

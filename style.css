@@ -195,18 +195,68 @@ body.theme-light.cursor-hover .cursor-ring {
 .site-header {
   position: fixed;
   z-index: 50;
-  top: 0; left: 0;
+  top: 0; left: 50%;
+  transform: translate3d(-50%, 0, 0);
   width: 100%;
-  border-bottom: 1px solid rgba(177,201,231,.12);
-  background: var(--header-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  max-width: 100%;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  box-shadow: none;
+  padding: 8px 0;
+  transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+              max-width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+              padding 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+              background-color 0.35s ease,
+              border-color 0.35s ease,
+              backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease,
+              border-radius 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+              top 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Scrolled state for Desktop and Tablet (Floating Card Appearance) */
+@media (min-width: 901px) {
+  .site-header.scrolled {
+    top: 16px;
+    width: calc(100% - 32px);
+    max-width: 1180px;
+    border-radius: 20px;
+    background: rgba(16, 28, 45, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+    padding: 6px 0;
+  }
+  body.theme-light .site-header.scrolled {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(29, 78, 216, 0.08);
+    box-shadow: 0 10px 30px rgba(29, 78, 216, 0.04);
+  }
+}
+
+/* Scrolled state for Mobile (Full-width Sticky Glass Bar) */
+@media (max-width: 900px) {
+  .site-header.scrolled {
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  body.theme-light .site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(29, 78, 216, 0.03);
+  }
 }
 
 .nav-container {
-  width: min(1180px, calc(100% - 32px));
+  width: 100%;
+  max-width: 1180px;
   min-height: var(--nav-height);
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -372,17 +422,15 @@ body:not(.theme-light) .theme-toggle .light { display: none; }
   z-index: 5;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 12px;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
   background: rgba(16, 28, 45, 0.48);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 10px 36px 0 rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: var(--text);
-  font-size: 0.82rem;
-  font-weight: 600;
   pointer-events: auto; /* enable hover interactions */
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
               border-color 0.3s ease,
@@ -392,29 +440,32 @@ body:not(.theme-light) .theme-toggle .light { display: none; }
 body.theme-light .float-badge {
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(29, 78, 216, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(29, 78, 216, 0.06);
-  color: var(--text);
+  box-shadow: 0 10px 36px 0 rgba(29, 78, 216, 0.08);
 }
 .float-badge svg {
-  width: 16px;
-  height: 16px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 
 /* Individual Badge Glows & Borders on Hover */
-.float-badge.react:hover { border-color: rgba(97, 218, 251, 0.5); box-shadow: 0 8px 32px rgba(97, 218, 251, 0.2), 0 0 15px rgba(97, 218, 251, 0.3); }
-.float-badge.node:hover { border-color: rgba(104, 160, 99, 0.5); box-shadow: 0 8px 32px rgba(104, 160, 99, 0.2), 0 0 15px rgba(104, 160, 99, 0.3); }
-.float-badge.express:hover { border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), 0 0 15px rgba(255, 255, 255, 0.15); }
-.float-badge.mongodb:hover { border-color: rgba(77, 179, 61, 0.5); box-shadow: 0 8px 32px rgba(77, 179, 61, 0.2), 0 0 15px rgba(77, 179, 61, 0.3); }
-.float-badge.js:hover { border-color: rgba(247, 223, 30, 0.5); box-shadow: 0 8px 32px rgba(247, 223, 30, 0.2), 0 0 15px rgba(247, 223, 30, 0.3); }
-.float-badge.mysql:hover { border-color: rgba(0, 117, 143, 0.5); box-shadow: 0 8px 32px rgba(0, 117, 143, 0.2), 0 0 15px rgba(0, 117, 143, 0.3); }
-.float-badge.html:hover { border-color: rgba(227, 79, 38, 0.5); box-shadow: 0 8px 32px rgba(227, 79, 38, 0.2), 0 0 15px rgba(227, 79, 38, 0.3); }
-.float-badge.css:hover { border-color: rgba(21, 114, 182, 0.5); box-shadow: 0 8px 32px rgba(21, 114, 182, 0.2), 0 0 15px rgba(21, 114, 182, 0.3); }
-.float-badge.tailwind:hover { border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 8px 32px rgba(56, 189, 248, 0.2), 0 0 15px rgba(56, 189, 248, 0.3); }
+.float-badge.react:hover { border-color: rgba(97, 218, 251, 0.5); box-shadow: 0 10px 36px rgba(97, 218, 251, 0.25), 0 0 18px rgba(97, 218, 251, 0.35); }
+.float-badge.node:hover { border-color: rgba(104, 160, 99, 0.5); box-shadow: 0 10px 36px rgba(104, 160, 99, 0.25), 0 0 18px rgba(104, 160, 99, 0.35); }
+.float-badge.express:hover { border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 10px 36px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.18); }
+body.theme-light .float-badge.express:hover { border-color: rgba(15, 23, 42, 0.3); box-shadow: 0 10px 36px rgba(15, 23, 42, 0.08), 0 0 18px rgba(15, 23, 42, 0.1); }
+.float-badge.mongodb:hover { border-color: rgba(77, 179, 61, 0.5); box-shadow: 0 10px 36px rgba(77, 179, 61, 0.25), 0 0 18px rgba(77, 179, 61, 0.35); }
+.float-badge.js:hover { border-color: rgba(247, 223, 30, 0.5); box-shadow: 0 10px 36px rgba(247, 223, 30, 0.25), 0 0 18px rgba(247, 223, 30, 0.35); }
+.float-badge.mysql:hover { border-color: rgba(0, 117, 143, 0.5); box-shadow: 0 10px 36px rgba(0, 117, 143, 0.25), 0 0 18px rgba(0, 117, 143, 0.35); }
+.float-badge.html:hover { border-color: rgba(227, 79, 38, 0.5); box-shadow: 0 10px 36px rgba(227, 79, 38, 0.25), 0 0 18px rgba(227, 79, 38, 0.35); }
+.float-badge.css:hover { border-color: rgba(21, 114, 182, 0.5); box-shadow: 0 10px 36px rgba(21, 114, 182, 0.25), 0 0 18px rgba(21, 114, 182, 0.35); }
+.float-badge.tailwind:hover { border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 10px 36px rgba(56, 189, 248, 0.25), 0 0 18px rgba(56, 189, 248, 0.35); }
+.float-badge.git:hover { border-color: rgba(240, 80, 50, 0.5); box-shadow: 0 10px 36px rgba(240, 80, 50, 0.25), 0 0 18px rgba(240, 80, 50, 0.35); }
+.float-badge.github:hover { border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 10px 36px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.18); }
+body.theme-light .float-badge.github:hover { border-color: rgba(15, 23, 42, 0.3); box-shadow: 0 10px 36px rgba(15, 23, 42, 0.08), 0 0 18px rgba(15, 23, 42, 0.1); }
 
 /* Hover scale effect */
 .float-badge:hover {
-  transform: translateY(-5px) scale(1.05) !important;
+  transform: translateY(-6px) scale(1.08) !important;
 }
 
 /* GPU-accelerated slow floating movements (independent animation timings & 3D translations) */
@@ -448,34 +499,48 @@ body.theme-light .float-badge {
 .float-badge.p7 { animation: floatAnimB 9.4s ease-in-out infinite; }
 .float-badge.p8 { animation: floatAnimC 7.7s ease-in-out infinite; }
 .float-badge.p9 { animation: floatAnimD 8.5s ease-in-out infinite; }
+.float-badge.p10 { animation: floatAnimE 6.8s ease-in-out infinite; }
+.float-badge.p11 { animation: floatAnimA 8.0s ease-in-out infinite; }
 
 /* Desktop layout coordinate distribution around profile center (Asymmetric & Randomized) */
 @media (min-width: 1200px) {
-  .float-badge.p1 { top: 10%; left: calc(50% - 240px); } /* React.js - above/left of avatar */
-  .float-badge.p2 { top: 12%; left: calc(50% + 230px); } /* Node.js - above/right of avatar */
-  .float-badge.p3 { top: 30%; left: calc(50% + 400px); } /* Express.js - beside name, right side */
-  .float-badge.p4 { top: 52%; left: calc(50% + 430px); } /* MongoDB - beside description, right side */
-  .float-badge.p5 { top: 26%; left: calc(50% - 430px); } /* JavaScript - beside eyebrow, left side */
-  .float-badge.p6 { top: 70%; left: calc(50% + 390px); } /* MySQL - near CTA, right side */
-  .float-badge.p7 { top: 48%; left: calc(50% - 470px); } /* HTML5 - beside description, left side */
-  .float-badge.p8 { top: 74%; left: calc(50% - 390px); } /* CSS3 - near CTA, left side */
-  .float-badge.p9 { top: 88%; left: calc(50% + 280px); } /* Tailwind CSS - very low, right side */
+  .float-badge.p1 { top: 10%; left: calc(50% - 260px); } /* React - above/left of avatar */
+  .float-badge.p2 { top: 12%; left: calc(50% + 250px); } /* Node - above/right of avatar */
+  .float-badge.p3 { top: 30%; left: calc(50% + 410px); } /* Express - beside name, right side */
+  .float-badge.p4 { top: 52%; left: calc(50% + 440px); } /* MongoDB - beside description, right side */
+  .float-badge.p5 { top: 24%; left: calc(50% - 440px); } /* JavaScript - beside eyebrow, left side */
+  .float-badge.p6 { top: 70%; left: calc(50% + 400px); } /* MySQL - near CTA, right side */
+  .float-badge.p7 { top: 48%; left: calc(50% - 480px); } /* HTML5 - beside description, left side */
+  .float-badge.p8 { top: 74%; left: calc(50% - 410px); } /* CSS3 - near CTA, left side */
+  .float-badge.p9 { top: 88%; left: calc(50% + 290px); } /* Tailwind CSS - very low, right side */
+  .float-badge.p10 { top: 62%; left: calc(50% - 250px); } /* Git - low/left */
+  .float-badge.p11 { top: 38%; left: calc(50% - 300px); } /* GitHub - mid/left */
 }
 
-/* Tablet layout (768px - 1199px): Show only 6 highest-priority badges (Asymmetric & Randomized) */
+/* Tablet layout (768px - 1199px): Show only 6 highest-priority badges with slightly smaller footprint */
 @media (min-width: 768px) and (max-width: 1199px) {
-  .float-badge.p1 { top: 10%; left: calc(50% - 210px); }
-  .float-badge.p2 { top: 13%; left: calc(50% + 190px); }
-  .float-badge.p3 { top: 32%; left: calc(50% + 320px); }
-  .float-badge.p4 { top: 56%; left: calc(50% + 340px); }
-  .float-badge.p5 { top: 48%; left: calc(50% - 350px); }
-  .float-badge.p6 { top: 80%; left: calc(50% + 240px); }
+  .float-badge {
+    width: 48px;
+    height: 48px;
+  }
+  .float-badge svg {
+    width: 24px;
+    height: 24px;
+  }
+  .float-badge.p1 { top: 10%; left: calc(50% - 230px); }
+  .float-badge.p2 { top: 13%; left: calc(50% + 210px); }
+  .float-badge.p3 { top: 32%; left: calc(50% + 330px); }
+  .float-badge.p4 { top: 56%; left: calc(50% + 350px); }
+  .float-badge.p5 { top: 46%; left: calc(50% - 370px); }
+  .float-badge.p6 { top: 80%; left: calc(50% + 260px); }
 }
 
 @media (max-width: 1199px) {
   .float-badge.p7,
   .float-badge.p8,
-  .float-badge.p9 {
+  .float-badge.p9,
+  .float-badge.p10,
+  .float-badge.p11 {
     display: none !important;
   }
 }
