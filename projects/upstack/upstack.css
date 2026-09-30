@@ -1,0 +1,868 @@
+/* ═══════════════════════════════════════════════════════════
+   UPSTACK CASE STUDY — upstack.css
+   Extends the main portfolio style.css — NO overrides to
+   existing tokens, layout helpers, or utility classes.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Page baseline ─────────────────────────────────────── */
+.cs-section {
+  position: relative;
+}
+
+/* Shared section gutter */
+.cs-section + .cs-section {
+  padding-top: 0;
+}
+
+/* ── 2. Breadcrumb ────────────────────────────────────────── */
+.cs-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.cs-breadcrumb a {
+  color: var(--primary);
+  transition: color 180ms ease;
+}
+.cs-breadcrumb a:hover { color: var(--text); }
+.cs-breadcrumb span { color: var(--muted); }
+
+/* ── 3. Hero ──────────────────────────────────────────────── */
+.cs-hero {
+  padding-top: calc(var(--nav-height) + 72px);
+  padding-bottom: 72px;
+  min-height: auto;
+  place-items: start;
+}
+
+.cs-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.cs-hero-text {
+  max-width: 720px;
+  /* Left accent: gradient border rail + padding for clear visual indentation */
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--primary), var(--accent)) 1;
+  padding-left: 28px;
+}
+
+/* Eyebrow sits right under breadcrumb with comfortable gap */
+.cs-hero-text .eyebrow {
+  margin-bottom: 14px;
+}
+
+/* Responsive: reduce left padding on small screens */
+@media (max-width: 560px) {
+  .cs-hero-text {
+    padding-left: 18px;
+  }
+}
+
+.cs-hero-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: transparent;
+  background: linear-gradient(90deg, var(--text), #8fc1ff, var(--accent), var(--text));
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradientShift 9s ease infinite;
+  /* Clear gap: eyebrow → title → subtitle */
+  margin: 0 0 22px;
+}
+
+.cs-hero-subtitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.1rem, 2.4vw, 1.42rem);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.35;
+  /* Comfortable gap below subtitle before description */
+  margin-bottom: 20px;
+  /* Subtle separator feel — slightly muted */
+  opacity: 0.88;
+}
+
+.cs-hero-desc {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 620px;
+  /* Clear gap: description → buttons */
+  margin-bottom: 36px;
+}
+
+.cs-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 52px;
+}
+
+
+/* ── 4. Hero image ────────────────────────────────────────── */
+.cs-hero-img-wrap {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cs-hero-img-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  background: var(--surface);
+}
+
+.cs-hero-img-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    rgba(7, 17, 31, 0.6)
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cs-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: inherit;
+}
+
+body.theme-light .cs-hero-img-frame {
+  border-color: rgba(29, 78, 216, 0.1);
+  box-shadow: 0 40px 100px rgba(15, 23, 42, 0.14);
+}
+
+/* ── 5. Overview grid ─────────────────────────────────────── */
+.cs-overview-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 52px;
+  align-items: start;
+}
+
+.cs-overview-text .section-heading h2 {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+}
+
+.cs-body-text {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-top: 20px;
+}
+
+/* ── 6. Meta card ─────────────────────────────────────────── */
+.cs-meta-card {
+  padding: 28px;
+}
+
+.cs-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cs-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.cs-meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+.cs-meta-row:first-child { padding-top: 0; }
+
+.cs-meta-row dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+}
+
+.cs-meta-row dd {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.96rem;
+  margin: 0;
+}
+
+.cs-meta-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green) !important;
+}
+
+.cs-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  display: inline-block;
+  animation: statusPulse 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+/* ── 7. Problem / Solution cards ──────────────────────────── */
+.cs-problem-solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.cs-ps-card {
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+.cs-ps-card h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0;
+}
+
+.cs-ps-card p {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.cs-ps-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cs-ps-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cs-ps-icon--problem {
+  background: rgba(255, 80, 80, 0.1);
+  border-color: rgba(255, 80, 80, 0.3);
+  color: #ff7373;
+}
+
+.cs-ps-icon--solution {
+  background: rgba(88, 217, 141, 0.1);
+  border-color: rgba(88, 217, 141, 0.3);
+  color: var(--green);
+}
+
+/* ── 8. Tech stack ────────────────────────────────────────── */
+.cs-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cs-stack-card {
+  padding: 24px;
+}
+
+.cs-stack-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.cs-stack-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cs-stack-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* AWS badge (not in main style.css) */
+.cs-aws-badge {
+  border-color: rgba(255, 153, 0, 0.4);
+  background: rgba(255, 153, 0, 0.1);
+  color: #ffb347;
+}
+
+/* Tailwind badge */
+.tailwind-badge {
+  border-color: rgba(56, 189, 248, 0.42);
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+}
+
+/* ejs badge */
+.ejs-badge {
+  border-color: rgba(183, 100, 255, 0.4);
+  background: rgba(183, 100, 255, 0.12);
+  color: #c88cff;
+}
+
+/* ── 9. Feature cards ─────────────────────────────────────── */
+.cs-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.cs-feature-card {
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.cs-feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(63, 140, 255, 0.4);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36), 0 0 30px rgba(63, 140, 255, 0.1);
+}
+
+.cs-feature-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.cs-feature-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.cs-feature-card p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 10. Screenshots ──────────────────────────────────────── */
+.cs-screenshot-main {
+  margin-bottom: 20px;
+}
+
+.cs-screenshot-frame {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  margin: 0;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.cs-screenshot-frame:hover {
+  border-color: rgba(63, 140, 255, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38), 0 0 28px rgba(63, 140, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+body.theme-light .cs-screenshot-frame {
+  border-color: rgba(29, 78, 216, 0.1);
+}
+
+.cs-screenshot-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 15px 15px 0 0;
+  max-height: 480px;
+}
+
+.cs-screenshot-caption {
+  display: block;
+  padding: 10px 18px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.cs-screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* ── 11. Architecture flow ────────────────────────────────── */
+.cs-arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.cs-arch-node {
+  text-align: center;
+}
+
+.cs-arch-node.glass-card {
+  padding: 24px 20px;
+  min-width: 150px;
+}
+
+.cs-arch-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.cs-arch-node h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.cs-arch-node p {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.cs-arch-arrow {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.cs-arch-arrow svg {
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+}
+
+/* Split node (MongoDB + S3) */
+.cs-arch-node--split {
+  display: flex;
+  gap: 14px;
+}
+
+.cs-arch-sub {
+  text-align: center;
+  padding: 20px 16px;
+  min-width: 110px;
+}
+
+.cs-arch-sub .cs-arch-icon {
+  font-size: 1.5rem;
+}
+
+.cs-arch-sub h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.cs-arch-sub p {
+  color: var(--muted);
+  font-size: 0.74rem;
+  margin: 0;
+}
+
+/* ── 12. My role ──────────────────────────────────────────── */
+.cs-role-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 52px;
+  align-items: start;
+}
+
+.cs-role-badge-wrap {
+  margin-top: 18px;
+}
+
+.cs-role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 800;
+  box-shadow: 0 8px 28px rgba(63, 140, 255, 0.28);
+}
+
+.cs-role-card {
+  padding: 32px;
+}
+
+.cs-role-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+
+/* ── 13. Challenges ───────────────────────────────────────── */
+.cs-challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.cs-challenge-card {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 220ms ease, border-color 220ms ease;
+}
+
+.cs-challenge-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(63, 140, 255, 0.4);
+}
+
+.cs-challenge-num {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  line-height: 1;
+}
+
+.cs-challenge-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.cs-challenge-section {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+}
+
+.cs-solution-section {
+  background: rgba(88, 217, 141, 0.04);
+  border-color: rgba(88, 217, 141, 0.18);
+}
+
+.cs-challenge-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.cs-solution-label {
+  color: var(--green);
+}
+
+.cs-challenge-section p:last-child {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 14. What I Learned ───────────────────────────────────── */
+.cs-learned-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 40px;
+}
+
+.cs-learned-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(63, 140, 255, 0.18), rgba(183, 100, 255, 0.12));
+  border: 1px solid var(--border);
+  color: var(--primary);
+}
+
+.cs-learned-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.cs-learned-wrap h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 10px 0 14px;
+}
+
+.cs-learned-wrap p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0;
+}
+
+/* ── 15. Project Links ────────────────────────────────────── */
+.cs-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cs-link-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px;
+  text-decoration: none;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.cs-link-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(63, 140, 255, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.36), 0 0 28px rgba(63, 140, 255, 0.1);
+}
+
+.cs-link-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.cs-link-card:hover .cs-link-icon {
+  color: var(--text);
+  background: rgba(63, 140, 255, 0.1);
+  border-color: rgba(63, 140, 255, 0.4);
+}
+
+.cs-link-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.cs-link-icon--primary {
+  background: linear-gradient(135deg, rgba(63, 140, 255, 0.2), rgba(183, 100, 255, 0.12));
+  border-color: rgba(63, 140, 255, 0.3);
+  color: var(--primary);
+}
+
+.cs-link-type {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.cs-link-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.cs-link-url {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.cs-link-arrow {
+  margin-left: auto;
+  color: var(--muted);
+  opacity: 0.5;
+  transition: transform 200ms ease, opacity 200ms ease, color 200ms ease;
+  flex-shrink: 0;
+}
+
+.cs-link-card:hover .cs-link-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+  color: var(--primary);
+}
+
+.cs-link-arrow svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2;
+}
+
+/* ── 16. Final CTA ────────────────────────────────────────── */
+.cs-cta-section {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cs-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  padding: 52px;
+  flex-wrap: wrap;
+}
+
+.cs-cta-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.cs-cta-text h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  color: var(--text);
+  margin: 12px 0 14px;
+  line-height: 1.2;
+}
+
+.cs-cta-text p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0;
+}
+
+.cs-cta-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── 17. Responsive ──────────────────────────────────────── */
+
+/* ≤1200px */
+@media (max-width: 1200px) {
+  .cs-features-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-stack-grid { grid-template-columns: repeat(3, 1fr); }
+  .cs-arch-flow { gap: 12px; }
+  .cs-arch-node.glass-card { min-width: 130px; }
+}
+
+/* ≤900px */
+@media (max-width: 900px) {
+  .cs-overview-grid { grid-template-columns: 1fr; gap: 32px; }
+  .cs-problem-solution-grid { grid-template-columns: 1fr; }
+  .cs-stack-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-features-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-screenshots-grid { grid-template-columns: 1fr; }
+  .cs-challenges-grid { grid-template-columns: 1fr; }
+  .cs-role-grid { grid-template-columns: 1fr; gap: 28px; }
+  .cs-role-list { grid-template-columns: 1fr; }
+  .cs-links-grid { grid-template-columns: 1fr; }
+  .cs-arch-flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cs-arch-arrow {
+    transform: rotate(90deg);
+    display: flex;
+    justify-content: center;
+  }
+  .cs-arch-node--split { flex-direction: row; }
+  .cs-cta-inner { flex-direction: column; text-align: center; padding: 36px 28px; }
+  .cs-cta-text p { max-width: 100%; }
+  .cs-cta-btn { width: 100%; justify-content: center; }
+  .cs-learned-wrap { flex-direction: column; padding: 28px; }
+  .cs-hero { padding-top: calc(var(--nav-height) + 42px); }
+}
+
+/* ≤560px */
+@media (max-width: 560px) {
+  .cs-hero-title { font-size: clamp(2.4rem, 10vw, 3.6rem); }
+  .cs-hero-subtitle { font-size: 1.05rem; }
+  .cs-hero-desc { font-size: 0.95rem; }
+  .cs-hero-actions { gap: 8px; }
+  .cs-features-grid { grid-template-columns: 1fr; }
+  .cs-stack-grid { grid-template-columns: 1fr; }
+  .cs-ps-card { padding: 24px; }
+  .cs-challenge-card { padding: 22px; }
+  .cs-meta-card { padding: 20px; }
+  .cs-hero-img { max-height: 240px; }
+  .cs-arch-node--split { flex-direction: column; }
+  .cs-arch-sub { min-width: 0; width: 100%; }
+  .cs-links-grid { grid-template-columns: 1fr; }
+  .cs-link-card { padding: 20px; }
+}
+
+/* ≤380px */
+@media (max-width: 380px) {
+  .cs-hero-actions { flex-direction: column; align-items: flex-start; }
+  .cs-challenges-grid { grid-template-columns: 1fr; }
+}
